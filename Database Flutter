@@ -1,0 +1,64 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(Myapp());
+
+class Myapp extends StatefulWidget {
+  _MyappState createState() => _MyappState();
+}
+
+class _MyappState extends State<Myapp> {
+  //deklarasi variabel
+  final txtno = TextEditingController();
+  final txtnama = TextEditingController();
+  final txtpenyakit = TextEditingController();
+  List<Widget> data = [];
+
+  onTambah() {
+    setState(() {
+      data.add(ListTile(
+        leading: Text(txtno.text),
+        title: Text(txtnama.text),
+        subtitle: Text(txtpenyakit.text),
+        trailing: Icon(Icons.delete),
+        
+      ));
+    });
+  }
+
+  Widget build(BuildContext context) {
+    return MaterialApp(
+        home: new Scaffold(
+            appBar: new AppBar(
+              backgroundColor: Colors.greenAccent,
+              title: Text("DATA PASIEN RUMAH SAKIT")),
+            body: new ListView(
+              children: <Widget>[
+                new Container(
+                  padding: EdgeInsets.all(10.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      TextField(
+                        controller: txtno,
+                        decoration: InputDecoration(hintText: 'No.'),
+                      ),
+                      TextField(
+                        controller: txtnama,
+                        decoration: InputDecoration(hintText: 'Nama Lengkap'),
+                      ),
+                      TextField(
+                        controller: txtpenyakit,
+                        decoration: InputDecoration(hintText: 'Nama Penyakit'),
+                      ),
+                      ElevatedButton(child: Text("Tambah"), onPressed: onTambah),
+                    ],
+                  ),
+                ),
+                new Column(
+                  // Isi List View
+                  children: data,
+                )
+              ],
+            )));
+  }
+}
